@@ -1,6 +1,6 @@
 {
   "name": "@cicada-lang/framework",
-  "version": "0.2.34",
+  "version": "0.1.0",
   "repository": "github:cicada-lang/framework",
   "main": "./lib/index.js",
   "files": [
