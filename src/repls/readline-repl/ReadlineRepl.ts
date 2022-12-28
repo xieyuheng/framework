@@ -24,20 +24,21 @@ export class ReadlineRepl extends Repl {
     handler: ReplEventHandler
     files: FileStore
     readline: Readline.Interface
-    commitOnDoubleNewline?: boolean
+    commitOnDoubleNewline: boolean
   }) {
     super()
     this.dir = opts.dir
     this.handler = opts.handler
     this.files = opts.files
     this.readline = opts.readline
-    this.commitOnDoubleNewline = Boolean(opts.commitOnDoubleNewline)
+    this.commitOnDoubleNewline = opts.commitOnDoubleNewline
   }
 
   static async create(opts: {
     dir: string
     handler: ReplEventHandler
     files: FileStore
+    commitOnDoubleNewline?: boolean
   }): Promise<ReadlineRepl> {
     const text = await opts.files.get("repl/history")
     const history = text ? text.trim().split("\n").reverse() : []
@@ -54,6 +55,7 @@ export class ReadlineRepl extends Repl {
       handler: opts.handler,
       files: opts.files,
       readline,
+      commitOnDoubleNewline: Boolean(opts.commitOnDoubleNewline),
     })
   }
 
