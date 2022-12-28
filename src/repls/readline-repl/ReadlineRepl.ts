@@ -1,20 +1,10 @@
 import Readline from "readline"
 import type { FileStore } from "../../file-store"
 import { Repl, ReplEvent, ReplEventHandler } from "../../repl"
-import type { Command } from "./Command"
-import * as Commands from "./commands"
 
 export class ReadlineRepl extends Repl {
   dir: string
   handler: ReplEventHandler
-  allStmts: Array<string> = []
-  successfulStmts: Array<string> = []
-  commands: Array<Command> = [
-    new Commands.Help(),
-    new Commands.Load(),
-    new Commands.Save(),
-    new Commands.SaveAll(),
-  ]
   files: FileStore
   readline: Readline.Interface
   commitOnDoubleNewline: boolean
@@ -86,6 +76,12 @@ export class ReadlineRepl extends Repl {
 
   private async handleLine(line: string): Promise<void> {
     this.lines.push(line)
+
+    if (this.commitOnDoubleNewline) {
+      const last = this.lines[this.lines.length - 1]
+      if (last !== undefined && last.trim() !== "") return
+    }
+
     if (!this.lock) {
       this.lock = true
       await this.processLines()
@@ -136,48 +132,17 @@ export class ReadlineRepl extends Repl {
     })
   }
 
-  private doubleNewlineReady = false
-
   private async processLines(): Promise<void> {
     while (true) {
       let text = this.nextTextOrReportError()
 
-      if (!this.commitOnDoubleNewline) {
-        if (!text) {
-          this.prompt()
-          return
-        }
-      } else {
-        if (!text) {
-          if (this.doubleNewlineReady) {
-            this.prompt()
-            this.doubleNewlineReady = false
-            return
-          } else {
-            this.doubleNewlineReady = true
-          }
-        } else {
-          this.doubleNewlineReady = false
-        }
-      }
-
-      text = text || ""
-
-      for (const command of this.commands) {
-        if (command.match(text)) {
-          // NOTE We do not call `this.prompt` here,
-          //   we let the command decide whether to call it.
-          await command.run(this, text)
-          return
-        }
+      if (!text) {
+        this.prompt()
+        return
       }
 
       const event: ReplEvent = { text }
-      const successful = await this.handler.handle(event)
-      this.allStmts.push(text)
-      if (successful) {
-        this.successfulStmts.push(text)
-      }
+      await this.handler.handle(event)
     }
   }
 
@@ -197,11 +162,20 @@ export class ReadlineRepl extends Repl {
       } else if (result.kind === "lack") {
         // go on next loop
       } else if (result.kind === "balance") {
-        if (text.trim() === "") {
-          // go on next loop
+        if (this.commitOnDoubleNewline) {
+          if (
+            text.trim() !== "" &&
+            this.lines[i + 1] !== undefined &&
+            this.lines[i + 1].trim() === ""
+          ) {
+            this.lines = this.lines.splice(i + 2)
+            return text
+          }
         } else {
-          this.lines = this.lines.splice(i + 1)
-          return text
+          if (text.trim() !== "") {
+            this.lines = this.lines.splice(i + 1)
+            return text
+          }
         }
       }
     }

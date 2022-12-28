@@ -7,7 +7,7 @@ export type ReplEvent = {
 
 export abstract class ReplEventHandler {
   abstract greeting(): void
-  abstract handle(event: ReplEvent): Promise<boolean>
+  abstract handle(event: ReplEvent): Promise<void>
 }
 
 export abstract class Repl {
