@@ -17,18 +17,21 @@ export class ReadlineRepl extends Repl {
   ]
   files: FileStore
   readline: Readline.Interface
+  commitOnDoubleNewline: boolean
 
   constructor(opts: {
     dir: string
     handler: ReplEventHandler
     files: FileStore
     readline: Readline.Interface
+    commitOnDoubleNewline?: boolean
   }) {
     super()
     this.dir = opts.dir
     this.handler = opts.handler
     this.files = opts.files
     this.readline = opts.readline
+    this.commitOnDoubleNewline = Boolean(opts.commitOnDoubleNewline)
   }
 
   static async create(opts: {
@@ -131,14 +134,32 @@ export class ReadlineRepl extends Repl {
     })
   }
 
+  private doubleNewlineReady = false
+
   private async processLines(): Promise<void> {
     while (true) {
-      const text = this.nextTextOrReportError()
+      let text = this.nextTextOrReportError()
 
-      if (!text) {
-        this.prompt()
-        return
+      if (!this.commitOnDoubleNewline) {
+        if (!text) {
+          this.prompt()
+          return
+        }
+      } else {
+        if (!text) {
+          if (this.doubleNewlineReady) {
+            this.prompt()
+            this.doubleNewlineReady = false
+            return
+          } else {
+            this.doubleNewlineReady = true
+          }
+        } else {
+          this.doubleNewlineReady = false
+        }
       }
+
+      text = text || ""
 
       for (const command of this.commands) {
         if (command.match(text)) {
