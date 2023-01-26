@@ -23,28 +23,29 @@
     "@xieyuheng/ty": "^0.1.20",
     "commonmark": "^0.30.0",
     "fast-deep-equal": "^3.1.3",
-    "immutable": "^4.2.1",
+    "immutable": "^4.2.2",
     "node-watch": "^0.7.3",
     "picocolors": "^1.0.0",
     "readdirp": "^3.6.0",
     "readline-sync": "^1.4.10",
-    "yaml": "^2.2.0"
+    "sync-request": "^6.1.0",
+    "yaml": "^2.2.1"
   },
   "devDependencies": {
     "@types/commonmark": "^0.27.5",
     "@types/node": "^18.11.18",
     "@types/readline-sync": "^1.4.4",
-    "@vitest/coverage-c8": "^0.26.2",
-    "@vitest/coverage-istanbul": "^0.26.2",
-    "@vitest/ui": "^0.26.2",
+    "@vitest/coverage-c8": "^0.28.2",
+    "@vitest/coverage-istanbul": "^0.28.2",
+    "@vitest/ui": "^0.28.2",
     "@xieyuheng/test-runner": "^0.2.7",
-    "husky": "^8.0.2",
-    "prettier": "^2.8.1",
-    "prettier-plugin-organize-imports": "^3.2.1",
+    "husky": "^8.0.3",
+    "prettier": "^2.8.3",
+    "prettier-plugin-organize-imports": "^3.2.2",
     "pretty-quick": "^3.1.3",
     "typescript": "^4.9.4",
-    "vite": "^4.0.3",
-    "vitest": "^0.26.2"
+    "vite": "^4.0.4",
+    "vitest": "^0.28.2"
   },
   "license": "GPL-3.0-or-later"
 }
