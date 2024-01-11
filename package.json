@@ -1,11 +1,12 @@
 {
   "name": "@cicada-lang/framework",
   "type": "module",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "repository": "github:cicada-lang/framework",
   "main": "./lib/index.js",
   "files": [
-    "src",    "lib"
+    "src",
+    "lib"
   ],
   "scripts": {
     "build": "rm -r lib && tsc",
