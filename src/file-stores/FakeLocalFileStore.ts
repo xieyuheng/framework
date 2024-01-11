@@ -1,4 +1,4 @@
-import { LocalFileStore } from "../file-stores"
+import { LocalFileStore } from "../file-stores/index.js"
 
 export class FakeLocalFileStore extends LocalFileStore {
   faked: Record<string, string>

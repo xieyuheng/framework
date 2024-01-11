@@ -1,7 +1,7 @@
-import { Logger, LogOptions } from "../logger"
-import { colors } from "../utils/colors"
-import { formatTime } from "../utils/formatDate"
-import { indent } from "../utils/indent"
+import { Logger, type LogOptions } from "../logger/index.js"
+import { colors } from "../utils/colors.js"
+import { formatTime } from "../utils/formatDate.js"
+import { indent } from "../utils/indent.js"
 
 export class PrettyLogger extends Logger {
   log(opts: LogOptions): void {

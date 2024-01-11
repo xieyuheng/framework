@@ -1,5 +1,5 @@
 import { expect, test } from "vitest"
-import { Fetcher } from "../fetcher"
+import { Fetcher } from "../fetcher/index.js"
 
 test("A fetcher can handle http and https by default.", async () => {
   const fetcher = new Fetcher()

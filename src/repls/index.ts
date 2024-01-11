@@ -1,1 +1,1 @@
-export * from "./readline-repl"
+export * from "./readline-repl/index.js"

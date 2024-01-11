@@ -1,7 +1,7 @@
 import fs from "fs"
 import Path from "path"
 import readdirp from "readdirp"
-import { FileStore } from "../file-store"
+import { FileStore } from "../file-store/index.js"
 
 export class LocalFileStore extends FileStore {
   dir: string

@@ -1,5 +1,5 @@
-import { CommonParensChecker } from "./CommonParensChecker"
-import type { ParensChecker } from "./ParensChecker"
+import { CommonParensChecker } from "./CommonParensChecker.js"
+import { type ParensChecker } from "./ParensChecker.js"
 
 export type ReplEvent = {
   text: string

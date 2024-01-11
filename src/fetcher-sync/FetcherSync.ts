@@ -37,6 +37,6 @@ export class FetcherSync {
 }
 
 function httpHandler(url: URL): string {
-  const res = request("GET", url.href)
+  const res = (request as any)("GET", url.href)
   return res.getBody("utf-8")
 }

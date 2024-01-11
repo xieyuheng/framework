@@ -1,2 +1,2 @@
-export * from "./PrettyLogger"
-export * from "./SilentLogger"
+export * from "./PrettyLogger.js"
+export * from "./SilentLogger.js"

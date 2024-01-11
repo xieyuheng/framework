@@ -1,6 +1,6 @@
 import Readline from "readline"
-import type { FileStore } from "../../file-store"
-import { Repl, ReplEvent, ReplEventHandler } from "../../repl"
+import { type FileStore } from "../../file-store/index.js"
+import { Repl, ReplEventHandler, type ReplEvent } from "../../repl/index.js"
 
 export class ReadlineRepl extends Repl {
   dir: string

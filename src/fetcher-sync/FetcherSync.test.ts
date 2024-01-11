@@ -1,5 +1,5 @@
 import { expect, test } from "vitest"
-import { FetcherSync } from "."
+import { FetcherSync } from "./index.js"
 
 test("A fetcher can handle http and https by default.", () => {
   const fetcher = new FetcherSync()
