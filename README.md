@@ -7,7 +7,7 @@ Our framework for programming language design.
 ### Install
 
 ```sh
-npm install @cicada-lang/framework
+npm install @xieyuheng/framework
 ```
 
 ## Development
